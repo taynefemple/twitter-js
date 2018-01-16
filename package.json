@@ -19,6 +19,8 @@
   "homepage": "https://github.com/taynefemple/twitter-js#readme",
   "dependencies": {
     "express": "^4.16.2",
-    "morgan": "^1.9.0"
+    "lodash": "^4.17.4",
+    "morgan": "^1.9.0",
+    "nunjucks": "^3.0.1"
   }
 }

@@ -3,28 +3,16 @@ const express = require('express');
 const app = express();
 const router = express.Router();
 const morgan = require('morgan');
+const nunjucks = require('nunjucks');
+const routes = require('./routes');
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.set('view engine', 'html'); //have res.render work with html files
+app.engine('html', nunjucks.render); //when giving html files to res.render, tell it to use nunjucks
+nunjucks.configure('views'); //points nujucks to the proper directory for templates
+  // noCache, turns off cache when in development, Caching a view saves rendered document & only re-renders if data has changed
+app.use(morgan('dev'));
 
-const jsonParser = bodyParser.json()
-app.use(jsonParser);
-
-app.use(function (req, res, next) {
-  console.log(req.method, req.path);
-  // console.log('incoming', req);
-  next();
-})
-
-app.get('/', (req, res, next) => {
-  res.send('Hello World!');
-});
-
-app.get('/news', (req, res) => res.send('Totally NOT fake news. It\'s on the internet after all!'));
-
-app.get('/news/special', (req, res) => res.send('This is a very SPECIAL area'));
-
-// router.get('news', (req, res) => res.send('Totally NOT fake news. It\'s on the internet after all!'));
-
+app.use('/', routes);
 
 
 
