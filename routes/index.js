@@ -16,5 +16,10 @@ router.get('/stylesheets/style.css', (req, res, next) => {
   res.sendFile(dirName);
 })
 
+router.get('/users/:name', function(req, res) {
+  var name = req.params.name;
+  var list = tweetBank.find( {name: name} );
+  res.render( 'index', list);
+});
 
 module.exports = router;
