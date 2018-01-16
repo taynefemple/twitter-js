@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const router = express.Router();
 // could use one line instead: const router = require('express').Router();
@@ -8,9 +9,11 @@ router.get('/', function (req, res) {
   res.render( 'index', { tweets: tweets } );
 });
 
-router.get('/stylesheets/style.css', (req, res, next) => {
+router.use(express.static('public'))
 
-  res.sendFile('../public/stylesheets/style.css')
+router.get('/stylesheets/style.css', (req, res, next) => {
+  const dirName = path.join(__dirname, '../public/stylesheets/style.css');
+  res.sendFile(dirName);
 })
 
 
